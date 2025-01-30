@@ -1,0 +1,215 @@
+<%- include("partials/header.ejs") %>
+  <body>
+    <main>
+      <section id="nevbar">
+        <nav
+          class="navbar navbar-expand-lg"
+          aria-label="Eleventh navbar example"
+        >
+          <div class="container">
+            <a class="navbar-brand" href="/"
+              ><img class="nav-logo" src="<%= basePath %>images/icons8-book-100.png" alt=""
+            /></a>
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarsExample09"
+              aria-controls="navbarsExample09"
+              aria-expanded="true"
+              aria-label="Toggle navigation"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="navbar-collapse collapse show" id="navbarsExample09">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item nev-hover">
+                  <a class="nav-link active" aria-current="page" href="/"
+                    >Home</a
+                  >
+                </li>
+                <li class="nav-item nev-hover">
+                  <a class="nav-link" href="/new">New Book</a>
+                </li>
+                <li class="nav-item nev-hover">
+                  <a class="nav-link" href="#">Table</a>
+                </li>
+                <li class="nav-item dropdown">
+                  <a
+                    class="nav-link dropdown-toggle"
+                    href="#"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                    >Sort By</a
+                  >
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="/sort/title">Name (A-Z)</a></li>
+                    <li>
+                      <a class="dropdown-item" href="/sort/rating">Rating</a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="/sort/finishdate">Date</a>
+                    </li>
+                  </ul>
+                </li>
+                <li class="nav-item dropdown">
+                  <a
+                    class="nav-link dropdown-toggle"
+                    href="#"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                    >Genre</a
+                  >
+                  <ul class="dropdown-menu">
+                    <li>
+                      <a
+                        class="dropdown-item"
+                        data-genre="fiction"
+                        onclick="filterBooks(this.dataset.genre)"
+                        >Fiction</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        class="dropdown-item"
+                        data-genre="non-fiction"
+                        onclick="filterBooks(this.dataset.genre)"
+                        >Non-Fiction</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        class="dropdown-item"
+                        data-genre="auto-biography"
+                        onclick="filterBooks(this.dataset.genre)"
+                        >Auto-Biography</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        class="dropdown-item"
+                        data-genre="self-help"
+                        onclick="filterBooks(this.dataset.genre)"
+                        >Self-Help</a
+                      >
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+              <form role="search">
+                <input
+                  name="search"
+                  id="search"
+                  class="form-control"
+                  type="search"
+                  placeholder="Search"
+                  aria-label="Search"
+                  oninput="searchBooks()"
+                />
+              </form>
+            </div>
+          </div>
+        </nav>
+      </section>
+      <section id="book-list">
+        <div class="container">
+          <div class="row">
+            <% books.forEach(function(book){ %>
+            <div id="book-container-<%= book.id %>" class="book-container m-3">
+              <div class="item-container">
+                <img
+                  src="https://covers.openlibrary.org/b/olid/<%= book.olid %>-L.jpg"
+                  onerror="this.src='<%= basePath %>images/NotFound.jpg'"
+                  alt=""
+                  class="img-fluid book-cover"
+                />
+
+                <div class="text-container">
+                  <h2 class="text text-title"><%= book.title %></h2>
+                  <p class="text text-author">
+                    Author Name : <%= book.authorname %>
+                  </p>
+                  <p class="text text-genre">Genre : <%= book.genre %></p>
+                  <p class="text text-finshDate">
+                    Finsih Date : <%= book.finishdate %>
+                  </p>
+                  <p class="text text-rating">Rating : <%= book.rating %>/10</p>
+                  <p
+                    class="text text-summary"
+                    id="summary-<%= book.id %>"
+                    data-full="<%= book.summary %>"
+                  >
+                    <%= book.summary.slice(0,500) %>
+                    <a onclick="showMore('<%= book.id %>')">...</a>
+                  </p>
+                  <div class="book-btn">
+                    <form action="/edit/<%= book.id %>" method="get">
+                      <button
+                        class="btn d-block"
+                        formaction="/edit/<%= book.id %>"
+                        formmethod="get"
+                      >
+                        Edit
+                      </button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <% }); %>
+          </div>
+        </div>
+      </section>
+    </main>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      function searchBooks() {
+        const searchInput = document
+          .getElementById("search")
+          .value.toLowerCase();
+        const bookList = document.querySelectorAll(".book-container"); // Correct selector
+
+        bookList.forEach((book) => {
+          const title = book
+            .querySelector(".text-title")
+            .textContent.toLowerCase(); // Match title selector
+          if (title.includes(searchInput)) {
+            book.style.display = "block"; // Show matching books
+          } else {
+            book.style.display = "none"; // Hide non-matching books
+          }
+        });
+      }
+      function showMore(id) {
+        const summary = document.querySelector(`#summary-${id}`);
+        if (summary) {
+          summary.textContent = summary.dataset.full; // Show the full summary
+          summary.style.maxHeight = "none"; // Remove the max-height
+        }
+      }
+
+      // Filter books by genre
+
+      function filterBooks(genre) {
+        const bookList = document.querySelectorAll(".book-container"); // Select all book containers
+
+        bookList.forEach((book) => {
+          const genreText = book
+            .querySelector(".text-genre")
+            ?.textContent.toLowerCase(); // Get the genre text and ensure safety with optional chaining
+
+          if (genreText && genreText.includes(genre.toLowerCase())) {
+            book.style.display = "block"; // Show matching books
+          } else {
+            book.style.display = "none"; // Hide non-matching books
+          }
+        });
+      }
+    </script>
+  </body>
+</html>

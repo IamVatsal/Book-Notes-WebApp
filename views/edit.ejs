@@ -1,0 +1,239 @@
+<%- include("partials/header1.ejs") %>
+  <body>
+    <main>
+      <section id="nevbar">
+        <nav
+          class="navbar navbar-expand-lg"
+          aria-label="Eleventh navbar example"
+        >
+          <div class="container">
+            <a class="navbar-brand" href="/"
+              ><img class="nav-logo" src="<%= basePath %>images/icons8-book-100.png" alt=""
+            /></a>
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarsExample09"
+              aria-controls="navbarsExample09"
+              aria-expanded="true"
+              aria-label="Toggle navigation"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="navbar-collapse collapse show" id="navbarsExample09">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item nev-hover">
+                  <a class="nav-link active" aria-current="page" href="/"
+                    >Home</a
+                  >
+                </li>
+                <li class="nav-item nev-hover">
+                  <a class="nav-link" href="/new">New Book</a>
+                </li>
+              </ul>
+              <form action="/search" method="GET" role="search">
+                <input
+                name="search"
+                  class="form-control"
+                  type="search"
+                  placeholder="Search"
+                  aria-label="Search"
+                />
+              </form>
+            </div>
+          </div>
+        </nav>
+      </section>
+      <section id="new-book">
+        <form action="/edit/<%= book.id %>" method="POST">
+          <div class="container">
+            <div class="row">
+              <div class="new-book-container m-3">
+                <div class="new-item-container">
+                  <div class="new-text-container">
+                    <table class="new-from-table">
+                      <tr>
+                        <td class="new-book-inputText">
+                          <label for="olid"
+                            ><p class="text new-text-title">
+                              Open Library Id :
+                            </p></label
+                          >
+                        </td>
+                        <td>
+                          <input
+                            name="olid"
+                            id="olid"
+                            class="form-text-input form-control"
+                            type="text"
+                            placeholder="Enter Open Library Id"
+                            value="<%= book ? book.olid : '' %>"
+                            data-original="<%= book ? book.olid : '' %>"
+                            required
+                          />
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="new-book-inputText">
+                          <label for="title"
+                            ><p class="text new-text-title">Title :</p></label
+                          >
+                        </td>
+                        <td>
+                          <input
+                            id="title"
+                            name="title"
+                            class="form-text-input form-control"
+                            type="text"
+                            placeholder="Enter Book Title"
+                            value="<%= book ? book.title : '' %>"
+                            data-original="<%= book ? book.title : '' %>"
+                            required
+                          />
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="new-book-inputText">
+                          <label for="authorName"
+                            ><p class="text new-text-author">
+                              Author Name :
+                            </p></label
+                          >
+                        </td>
+                        <td>
+                          <input
+                            id="authorName"
+                            name="authorName"
+                            class="form-text-input form-control"
+                            type="text"
+                            placeholder="Enter Author Name"
+                            value="<%= book ? book.authorname : '' %>"
+                            data-original="<%= book ? book.authorname : '' %>"
+                            required
+                          />
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="new-book-inputText">
+                          <label for="genre"
+                            ><p class="text new-text-genre">Genre :</p></label
+                          >
+                        </td>
+                        <td>
+                          <select
+                            id="genre"
+                            name="genre"
+                            class="form-text-input form-control"
+                            required
+                          >
+                            <option value="" <%= book && book.genre === "" ? "selected" : "" %>>Select Genre</option>
+                            <option value="Fiction" <%= book && book.genre === "Fiction" ? "selected" : "" %>>Fiction</option>
+                            <option value="Non-Fiction" <%= book && book.genre === "Non-Fiction" ? "selected" : "" %>>Non-Fiction</option>
+                            <option value="Auto-Biography" <%= book && book.genre === "Auto-Biography" ? "selected" : "" %>>Auto-Biography</option>
+                            <option value="Self-Help" <%= book && book.genre === "Self-Help" ? "selected" : "" %>>Self-Help</option>
+                          </select>
+                        </td>
+                      </tr>
+
+                      <tr></tr>
+                      <tr>
+                        <td class="new-book-inputText">
+                          <label for="finishDate"
+                            ><p class="text new-text-finshDate">
+                              Finish Date :
+                            </p></label
+                          >
+                        </td>
+                        <td>
+                          <input
+                            id="finishDate"
+                            name="finishDate"
+                            class="form-text-input form-control"
+                            type="date"
+                            value="<%= book ? book.finishdate : '' %>"
+                            data-original="<%= book ? book.finishdate : '' %>"
+                            placeholder="Enter Finish Date"
+                            required
+                          />
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="new-book-inputText">
+                          <label for="rating"
+                            ><p class="text new-text-rating">Rating :</p></label
+                          >
+                        </td>
+                        <td>
+                          <input
+                            id="rating"
+                            name="rating"
+                            class="form-text-input form-control"
+                            type="number"
+                            min="1"
+                            max="10"
+                            value="<%= book ? book.rating : '' %>"
+                            data-original="<%= book ? book.rating : '' %>"
+                            placeholder="Enter Rating Out of 10"
+                            required
+                          />
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="new-book-inputText">
+                          <label for="Summary"
+                            ><p class="text new-text-summary">
+                              Summary :
+                            </p></label
+                          >
+                        </td>
+                        <td>
+                          <textarea
+                            id="summary"
+                            name="summary"
+                            class="form-textarea form-control"
+                            placeholder="Enter Summary"
+                            required
+                          ><%= book ? book.summary : '' %></textarea>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td colspan="2" class="new-book-submit">
+                          <div class="new-book-btn">
+                            <button class="btn d-block" onclick="deleteBook('<%= book.id %>')">Delete</button>
+                            <button class="btn d-block">Submit</button>
+                          </div>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                  <img
+                    src="<%= book ? `https://covers.openlibrary.org/b/olid/${book.olid}-L.jpg`: './images/NotFound.jpg' %>"
+                    alt=""
+                    class="img-fluid new-book-cover"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </section>
+    </main>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      function deleteBook(id) {
+        fetch(`/delete/${id}`, {
+          method: "DELETE",
+        })
+          .then((res) => res.json())
+
+          };
+      
+    </script>
+  </body>
+</html>

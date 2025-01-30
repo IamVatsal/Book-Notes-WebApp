@@ -4,8 +4,10 @@ import pg from "pg";
 import dotenv from "dotenv";
 import axios from "axios";
 
+
 dotenv.config();
 const app = express();
+const port = process.env.PORT || 3000;
 const db = new pg.Client({
   user: process.env.DB_USER,
   host: process.env.DB_HOST,
@@ -182,4 +184,6 @@ app.get("/search", async (req, res) => {
   res.render("index.ejs", { books: books, basePath: "../" });
 });
 
-app.listen();
+app.listen(port, () => {
+  console.log(`Server running on port : ${port}`);
+});

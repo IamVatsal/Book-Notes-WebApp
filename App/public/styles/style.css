@@ -209,12 +209,29 @@ td {
 }
 
 @media (max-width: 1200px) {
+  /* .item-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    } */
   .book-cover {
     width: 50%;
     height: 300px;
   }
 }
 @media (max-width: 992px) {
+  .nevbar {
+    max-width: 95% !important; /*Set your own width %; */
+  }
+  .container {
+    max-width: 95% !important; /*Set your own width %; */
+  }
+  .book-container {
+    width: 95%;
+  }
+  .new-book-container {
+    width: 95%;
+  }
   .item-container {
     display: flex;
     flex-direction: column;
@@ -234,5 +251,33 @@ td {
     width: 100%;
     margin-left: 0rem;
     margin-top: 1rem;
+  }
+  .new-item-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .new-book-cover {
+    width: 100%;
+    height: 300px;
+  }
+  .new-book-cover:hover {
+    scale: 1.015;
+    transition: 0.5s;
+  }
+  .new-text-container {
+    display: inline-flex;
+    flex-direction: column;
+    width: 100%;
+    margin-left: 0rem;
+    margin-top: 1rem;
+  }
+}
+@media (max-width: 420px) {
+  .book-container {
+    width: 90%;
+  }
+  .new-book-container {
+    width: 90%;
   }
 }

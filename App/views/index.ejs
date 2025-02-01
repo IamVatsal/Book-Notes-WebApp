@@ -62,7 +62,17 @@
                     <li>
                       <a
                         class="dropdown-item"
+                        data-genre=""
+                        value=""
+                        onclick="filterBooks(this.dataset.genre)"
+                        >All Genres</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        class="dropdown-item"
                         data-genre="fiction"
+                        value="Fiction"
                         onclick="filterBooks(this.dataset.genre)"
                         >Fiction</a
                       >
@@ -71,6 +81,7 @@
                       <a
                         class="dropdown-item"
                         data-genre="non-fiction"
+                        value="Non-Fiction"
                         onclick="filterBooks(this.dataset.genre)"
                         >Non-Fiction</a
                       >
@@ -79,6 +90,7 @@
                       <a
                         class="dropdown-item"
                         data-genre="auto-biography"
+                        value="Auto-Biography"
                         onclick="filterBooks(this.dataset.genre)"
                         >Auto-Biography</a
                       >
@@ -87,6 +99,7 @@
                       <a
                         class="dropdown-item"
                         data-genre="self-help"
+                        value="Self-Help"
                         onclick="filterBooks(this.dataset.genre)"
                         >Self-Help</a
                       >
@@ -196,11 +209,9 @@
         const bookList = document.querySelectorAll(".book-container"); // Select all book containers
 
         bookList.forEach((book) => {
-          const genreText = book
-            .querySelector(".text-genre")
-            ?.textContent.toLowerCase(); // Get the genre text and ensure safety with optional chaining
+          const genreText = book.querySelector(".text-genre")?.textContent.replace("Genre :", "").trim().toLowerCase(); // Get the genre text and ensure safety with optional chaining
 
-          if (genreText && genreText.includes(genre.toLowerCase())) {
+          if (!genre || (genreText && genreText === genre.toLowerCase())) {
             book.style.display = "block"; // Show matching books
           } else {
             book.style.display = "none"; // Hide non-matching books

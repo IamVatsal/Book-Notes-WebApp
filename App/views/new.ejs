@@ -8,7 +8,7 @@
         >
           <div class="container">
             <a class="navbar-brand" href="/"
-              ><img class="nav-logo" src="./images/icons8-book-100.png" alt=""
+              ><img class="nav-logo" src="<%= basePath %>images/icons8-book-100.png" alt=""
             /></a>
             <button
               class="navbar-toggler"
@@ -30,24 +30,28 @@
                   >
                 </li>
                 <li class="nav-item nev-hover">
-                  <a class="nav-link" href="/new">New Book</a>
+                  <a class="nav-link" href="/books/new">New Book</a>
                 </li>
               </ul>
-              <form action="/search" method="GET" role="search" class="d-flex">
-                <input
-                name="search"
-                  class="form-control"
-                  type="search"
-                  placeholder="Search"
-                  aria-label="Search"
-                />
-              </form>
+              <div class="search-login-container">
+                <form role="search">
+                  <input
+                    name="search"
+                    id="search"
+                    class="form-control search-box"
+                    type="search"
+                    placeholder="Search"
+                    aria-label="Search"
+                    oninput="searchBooks()"
+                  />
+                </form>
+              </div>
             </div>
           </div>
         </nav>
       </section>
       <section id="new-book">
-        <form action="/new" method="POST">
+        <form action="/books/new" method="POST">
           <div class="container">
             <div class="row">
               <div class="new-book-container m-3">
@@ -71,6 +75,27 @@
                             placeholder="Enter Open Library Id"
                             title="Find Open Library Id from https://openlibrary.org/"
                             value="<%= book ? book.olid : '' %>"
+                            required
+                          />
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="new-book-inputText">
+                          <label for="isbn"
+                            ><p class="text new-text-title">
+                              ISBN Id :
+                            </p></label
+                          >
+                        </td>
+                        <td>
+                          <input
+                            name="isbn"
+                            id="isbn"
+                            class="form-text-input form-control"
+                            type="text"
+                            placeholder="Enter ISBN Id"
+                            title="Find ISBN Id from https://openlibrary.org/"
+                            value="<%= book ? book.isbn : '' %>"
                             required
                           />
                         </td>
@@ -204,7 +229,7 @@
                     </table>
                   </div>
                   <img
-                    src="<%= book ? book.cover: './images/NotFound.jpg' %>"
+                  src="<%= book ? book.cover : basePath + 'images/NotFound.jpg' %>"
                     alt=""
                     class="img-fluid new-book-cover"
                   />
@@ -227,22 +252,38 @@
       let typingTimer; // Timer identifier
       const typingDelay = 500; // Delay in milliseconds
 
-      function handleTyping(event) {
+      function handleTypingOlid(event) {
         clearTimeout(typingTimer); // Clear the previous timer
         const olidInput = event.target.value.trim(); // Get the input value
         if (olidInput) {
           typingTimer = setTimeout(() => {
             // Trigger GET request after delay
-            window.location.href = `/new?olid=${encodeURIComponent(olidInput)}`;
+            window.location.href = `/books/new?query=${encodeURIComponent(olidInput)}&olid=true`;
+          }, typingDelay);
+        }
+      }
+
+      function handleTypingIsbn(event) {
+        clearTimeout(typingTimer); // Clear the previous timer
+        const isbnInput = event.target.value.trim(); // Get the input value
+        if (isbnInput) {
+          typingTimer = setTimeout(() => {
+            // Trigger GET request after delay
+            window.location.href = `/books/new?query=${encodeURIComponent(isbnInput)}&isbn=true`;
           }, typingDelay);
         }
       }
 
       document.addEventListener("DOMContentLoaded", () => {
         const olidInputField = document.getElementById("olid");
+        const isbnInputField = document.getElementById("isbn");
         if (olidInputField) {
-          // Attach the input event listener
-          olidInputField.addEventListener("input", handleTyping);
+          // Attach the input event listener to the OLID input field
+          olidInputField.addEventListener("input", handleTypingOlid);
+        }
+        if (isbnInputField) {
+          // Attach the input event listener to the ISBN input field
+          isbnInputField.addEventListener("input", handleTypingIsbn);
         }
       });
     </script>

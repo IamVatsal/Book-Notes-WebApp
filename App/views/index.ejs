@@ -30,7 +30,7 @@
                   >
                 </li>
                 <li class="nav-item nev-hover">
-                  <a class="nav-link" href="/new">New Book</a>
+                  <a class="nav-link" href="/books/new">New Book</a>
                 </li>
                 <li class="nav-item dropdown">
                   <a
@@ -107,17 +107,25 @@
                   </ul>
                 </li>
               </ul>
-              <form role="search">
-                <input
-                  name="search"
-                  id="search"
-                  class="form-control"
-                  type="search"
-                  placeholder="Search"
-                  aria-label="Search"
-                  oninput="searchBooks()"
-                />
-              </form>
+              <div class="search-login-container">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 login-btn">
+                  <li class="nav-item nev-hover">
+                    <a class="nav-link" href="/login">Log in</a>
+                  </li>
+                </ul>
+
+                <form role="search">
+                  <input
+                    name="search"
+                    id="search"
+                    class="form-control search-box"
+                    type="search"
+                    placeholder="Search"
+                    aria-label="Search"
+                    oninput="searchBooks()"
+                  />
+                </form>
+              </div>
             </div>
           </div>
         </nav>
@@ -154,10 +162,10 @@
                     <a onclick="showMore('<%= book.id %>')">...</a>
                   </p>
                   <div class="book-btn">
-                    <form action="/edit/<%= book.id %>" method="get">
+                    <form action="/books/edit/<%= book.id %>" method="get">
                       <button
                         class="btn d-block"
-                        formaction="/edit/<%= book.id %>"
+                        formaction="/books/edit/<%= book.id %>"
                         formmethod="get"
                       >
                         Edit

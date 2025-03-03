@@ -1,4 +1,4 @@
-<%- include("partials/header1.ejs") %>
+<%- include("partials/header.ejs") %>
   <body>
     <main>
       <section id="nevbar">
@@ -33,20 +33,23 @@
                   <a class="nav-link" href="/new">New Book</a>
                 </li>
               </ul>
-              <form action="/search" method="GET" role="search">
-                <input
-                name="search"
-                  class="form-control"
-                  type="search"
-                  placeholder="Search"
-                  aria-label="Search"
-                />
-              </form>
+              <div class="search-login-container">
+                <form action="/books/search" method="GET" role="search">
+                  <input
+                    name="search"
+                    id="search"
+                    class="form-control search-box"
+                    type="search"
+                    placeholder="Search"
+                    aria-label="Search"
+                  />
+                </form>
+              </div>
             </div>
           </div>
         </nav>
       </section>
-      <section id="new-book">
+      <section id="edit-book">
         <form action="/edit/<%= book.id %>" method="POST">
           <div class="container">
             <div class="row">
@@ -72,6 +75,27 @@
                             title="Find Open Library Id from https://openlibrary.org/"
                             value="<%= book ? book.olid : '' %>"
                             data-original="<%= book ? book.olid : '' %>"
+                            required
+                          />
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="new-book-inputText">
+                          <label for="isbn"
+                            ><p class="text new-text-title">
+                              ISBN Id :
+                            </p></label
+                          >
+                        </td>
+                        <td>
+                          <input
+                            name="isbn"
+                            id="isbn"
+                            class="form-text-input form-control"
+                            type="text"
+                            placeholder="Enter ISBN Id"
+                            title="Find ISBN Id from https://openlibrary.org/"
+                            value="<%= book ? book.isbn : '' %>"
                             required
                           />
                         </td>
@@ -210,7 +234,7 @@
                     </table>
                   </div>
                   <img
-                    src="<%= book ? `https://covers.openlibrary.org/b/olid/${book.olid}-L.jpg`: './images/NotFound.jpg' %>"
+                    src="<%= book ? `https://covers.openlibrary.org/b/olid/${book.olid}-L.jpg`: basePath+'images/NotFound.jpg' %>"
                     alt=""
                     class="img-fluid new-book-cover"
                   />
@@ -231,7 +255,7 @@
     ></script>
     <script>
       function deleteBook(id) {
-        fetch(`/delete/${id}`, {
+        fetch(`/books/delete/${id}`, {
           method: "DELETE",
         })
           .then((res) => res.json())

@@ -190,6 +190,45 @@ td {
   width: 15%;
 }
 
+.login-section{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70vh;
+}
+
+.login-text{
+  font-size: 20px;
+  font-weight: bold;
+  padding-bottom: 1rem;
+}
+
+.footer {
+  position: fixed;
+  color: #fff;
+  text-align: center;
+  bottom: 0;
+  width: 100%;
+}
+
+.search-login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.search-box{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.login-btn {
+  padding-right: 1rem;
+  z-index: 10;
+}
+
 @media (min-width: 576px) {
   .dropdown:hover .dropdown-menu {
     display: block;

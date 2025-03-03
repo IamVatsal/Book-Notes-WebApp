@@ -13,7 +13,7 @@ const getBooksPage = async (req, res) => {
       [username]
     );
     books = result.rows;
-    res.render("index.ejs", { books: books , user});
+    res.render("index.ejs", { books: books , basePath: "../" , user});
 };
 
 export { getBooksPage };

@@ -16,10 +16,11 @@ router.get("/forgotpass", getForgotpassPage);
 router.post(
   "/",
   passport.authenticate("local", {
-    successRedirect: "/",
+    successRedirect: "/books",
     failureRedirect: "/login",
   })
 );
+
 router.get(
   "/auth/google",
   passport.authenticate("google", { scope: ["profile", "email"] })
@@ -35,10 +36,12 @@ router.get(
 
 passport.use(
   "local",
-  new Strategy(async function verify(username, password, cb) {
+  new Strategy(
+    { usernameField: "email", passwordField: "password" },
+    async function verify(email, password, cb) {
     try {
       const result = await db.query("SELECT * FROM users WHERE email = $1 ", [
-        username,
+        email,
       ]);
       if (result.rows.length > 0) {
         const user = result.rows[0];

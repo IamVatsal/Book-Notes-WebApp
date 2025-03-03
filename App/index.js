@@ -50,12 +50,20 @@ app.use((req, res, next) => {
 });
 
 app.get("/", async (req, res) => {
-  console.log(req.user);
-  let result = await db.query(
-    "SELECT id, title, olid, authorName, genre, TO_CHAR(finishDate, 'DD/MM/YYYY') AS finishDate, rating, summary FROM book_details"
-  );
-  books = result.rows;
-  res.render("index.ejs", { books: books });
+  const user = req.user;
+  try {
+    if (!user) {
+      return res.redirect("/login");
+    }else{
+      let result = await db.query(
+        "SELECT id, title, olid, authorName, genre, TO_CHAR(finishDate, 'DD/MM/YYYY') AS finishDate, rating, summary FROM book_details WHERE username = $1",[user.username]
+      );
+      books = result.rows;
+      res.render("index.ejs", { books: books , user });
+    }
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 passport.serializeUser((user, cb) => {

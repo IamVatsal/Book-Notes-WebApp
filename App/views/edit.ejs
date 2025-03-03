@@ -34,7 +34,7 @@
                 </li>
               </ul>
               <div class="search-login-container">
-                <form role="search">
+                <form action="/books/search" method="GET" role="search">
                   <input
                     name="search"
                     id="search"
@@ -42,7 +42,6 @@
                     type="search"
                     placeholder="Search"
                     aria-label="Search"
-                    oninput="searchBooks()"
                   />
                 </form>
               </div>
@@ -50,7 +49,7 @@
           </div>
         </nav>
       </section>
-      <section id="new-book">
+      <section id="edit-book">
         <form action="/edit/<%= book.id %>" method="POST">
           <div class="container">
             <div class="row">

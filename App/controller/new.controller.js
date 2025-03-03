@@ -2,7 +2,10 @@ import axios from "axios";
 import db from "../db.js";
 // Get book details from Open Library API
 const getAddBookPage = async (req, res) => {
-  console.log(req.user);
+    if (!req.isAuthenticated()) {
+      res.redirect("/login");
+      return;
+    }
     const query = req.query.query; // Extract OLID from query params
     const isIsbn = req.query.isbn === "true"; // Extract OLID from query params
   
@@ -32,7 +35,11 @@ const getAddBookPage = async (req, res) => {
 }
 
 const postAddBookPage = async (req, res) => {
-    console.log(req.body);
+    if (!req.isAuthenticated()) {
+      res.redirect("/login");
+      return;
+    }
+    const user = req.user;
     const book = {
       title: req.body.title,
       isbn: req.body.isbn,
@@ -41,20 +48,23 @@ const postAddBookPage = async (req, res) => {
       genre: req.body.genre,
       finishdate: req.body.finishDate,
       rating: req.body.rating,
+      isPublic: req.body.isPublic,
       summary: req.body.summary,
     };
   
     try {
       await db.query(
-        "INSERT INTO book_details (title, isbn, olid, authorname, genre, finishdate, rating, summary) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)",
+        "INSERT INTO book_details (title, isbn, olid, authorname, genre, username, finishdate, rating, isPublic, summary) VALUES ($1, $2, $3, $4, $5, $6, $7, $8 , $9, $10)",
         [
           book.title,
           book.isbn,
           book.olid,
           book.authorname,
           book.genre,
+          user.username,
           book.finishdate,
           book.rating,
+          book.isPublic,
           book.summary,
         ]
       );

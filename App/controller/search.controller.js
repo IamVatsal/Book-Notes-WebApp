@@ -1,15 +1,19 @@
 import db from "../db.js";
 
 const search = async (req, res) => {
-  console.log(req.user);
+  if (!req.isAuthenticated()) {
+    res.redirect("/login");
+    return;
+  }
+  const user = req.user;
   const search = capitalize(req.query.search);
 
   let result = await db.query(
-    `SELECT id, title, olid, authorName, genre, TO_CHAR(finishDate, 'DD/MM/YYYY') AS finishDate, rating, summary FROM book_details WHERE title LIKE $1`,
-    [`%${search}%`]
+    `SELECT id, title, olid, authorName, genre, TO_CHAR(finishDate, 'DD/MM/YYYY') AS finishDate, rating, summary FROM book_details WHERE title LIKE $1 AND username = $2`,
+    [`%${search}%`, user.username]
   );
-  books = result.rows;
-  res.render("index.ejs", { books: books, basePath: "../" });
+  const books = result.rows;
+  res.render("index.ejs", { books: books, basePath: "../", user });
 };
 
 function capitalize(s) {

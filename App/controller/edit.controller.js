@@ -1,6 +1,7 @@
 import db from '../db.js';
 
 const getEditPage = async (req, res) => {
+  console.log(req.user);
     const id = req.params.id;
   
     let result = await db.query(

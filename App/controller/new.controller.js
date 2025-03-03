@@ -2,6 +2,7 @@ import axios from "axios";
 import db from "../db.js";
 // Get book details from Open Library API
 const getAddBookPage = async (req, res) => {
+  console.log(req.user);
     const query = req.query.query; // Extract OLID from query params
     const isIsbn = req.query.isbn === "true"; // Extract OLID from query params
   

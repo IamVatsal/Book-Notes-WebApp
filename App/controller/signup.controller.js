@@ -13,9 +13,10 @@ const getPage = (req, res) => {
 };
 
 const postSignup = async (req, res) => {
-  const email = req.body.username;
+  // console.log(req.body);
+  const email = req.body.email;
   const password = req.body.password;
-  const username = req.body.username;
+  const username = req.body.email.slice(0, email.indexOf("@"));
 
   try {
     const checkResult = await db.query("SELECT * FROM users WHERE email = $1", [
@@ -36,7 +37,7 @@ const postSignup = async (req, res) => {
           const user = result.rows[0];
           req.login(user, (err) => {
             console.log("success");
-            res.redirect("/secrets");
+            res.redirect("/");
           });
         }
       });

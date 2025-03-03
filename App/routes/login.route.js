@@ -80,8 +80,9 @@ passport.use(
       try {
         console.log(profile);
         const result = await db.query("SELECT * FROM users WHERE email = $1", [
-          profile.emails,
+          profile.emails[0].value,
         ]);
+        const user = result.rows[0];
         if (result.rows.length === 0) {
           const email = profile.emails[0].value;
           const newUser = await db.query(
@@ -92,9 +93,10 @@ passport.use(
               email.slice(0, email.indexOf("@")),
             ]
           );
-          return cb(null, newUser.rows[0]);
+          const user = newUser.rows[0];
+          return cb(null, user);
         } else {
-          return cb(null, result.rows[0]);
+          return cb(null, user);
         }
       } catch (err) {
         return cb(err);
@@ -104,3 +106,4 @@ passport.use(
 );
 
 export default router;
+

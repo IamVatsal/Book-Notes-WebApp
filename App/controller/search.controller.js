@@ -1,6 +1,7 @@
 import db from "../db.js";
 
 const search = async (req, res) => {
+  console.log(req.user);
   const search = capitalize(req.query.search);
 
   let result = await db.query(

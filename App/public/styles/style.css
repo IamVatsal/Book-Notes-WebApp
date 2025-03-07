@@ -195,6 +195,11 @@ td {
   vertical-align: top;
   text-align: right;
 }
+.form-check-input{
+  width: 20px;
+  height: 20px;
+  margin-top: .6rem;
+}
 .form-textarea {
   border-color: #83888c;
   background-color: rgba(255, 255, 255, 0.425);

@@ -30,7 +30,7 @@
                   >
                 </li>
                 <li class="nav-item nev-hover">
-                  <a class="nav-link" href="/new">New Book</a>
+                  <a class="nav-link" href="/books/new">New Book</a>
                 </li>
               </ul>
               <div class="search-login-container">
@@ -202,6 +202,23 @@
                             data-original="<%= book ? book.rating : '' %>"
                             placeholder="Enter Rating Out of 10"
                             required
+                          />
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="new-book-inputText">
+                          <label for="ispublic">
+                            <p class="text new-text-rating">Public :</p>
+                          </label>
+                        </td>
+                        <td>
+                          <input
+                            id="ispublic"
+                            type="checkbox"
+                            name="ispublic"
+                            value="true"
+                            class="form-check-input form-control"
+                            <%= book && book.ispublic == true ? "checked" : "" %>
                           />
                         </td>
                       </tr>

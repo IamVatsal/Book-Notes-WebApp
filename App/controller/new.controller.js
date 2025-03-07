@@ -39,6 +39,7 @@ const postAddBookPage = async (req, res) => {
       res.redirect("/login");
       return;
     }
+
     const user = req.user;
     const book = {
       title: req.body.title,
@@ -48,9 +49,15 @@ const postAddBookPage = async (req, res) => {
       genre: req.body.genre,
       finishdate: req.body.finishDate,
       rating: req.body.rating,
-      isPublic: req.body.isPublic,
+      isPublic: req.body.isPublic === "true",
       summary: req.body.summary,
     };
+
+    if (!book.title || !book.isbn || !book.authorname || !book.genre || !book.finishdate || !book.rating || !book.summary) {
+      console.log("Validation failed: Missing required fields");
+      res.status(400).send("Missing required fields");
+      return;
+    }
   
     try {
       await db.query(
@@ -68,11 +75,11 @@ const postAddBookPage = async (req, res) => {
           book.summary,
         ]
       );
+      res.redirect("/books");
     } catch (error) {
-      console.log(error);
+        console.error("Database insert error:", error);
+        res.status(500).send("Internal Server Error");
     }
-  
-    res.redirect("/");
 }
 
 

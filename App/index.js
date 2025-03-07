@@ -50,13 +50,11 @@ app.use((req, res, next) => {
 app.get("/", async (req, res) => {
   const user = req.user;
   try {
-    if (!user) {
-      let result = await db.query(
-        "SELECT id, title, olid, authorName, genre, TO_CHAR(finishDate, 'DD/MM/YYYY') AS finishDate, rating, summary, username FROM book_details WHERE ispublic = true"
-      );
-      books = result.rows;
-      res.render("index.ejs", { books: books , user });
-    }
+    let result = await db.query(
+      "SELECT id, title, olid, authorName, genre, TO_CHAR(finishDate, 'DD/MM/YYYY') AS finishDate, rating, summary, username FROM book_details WHERE ispublic = true"
+    );
+    books = result.rows;
+    res.render("index.ejs", { books: books, user });
   } catch (error) {
     console.log(error);
   }

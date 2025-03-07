@@ -15,26 +15,31 @@ This application provides a range of features to help users efficiently manage t
 - 📂 Categorize notes by book title or genre
 - 🎨 Clean and responsive UI
 - 🌐 Built using modern web technologies
+- 📅 Sort books by title, rating, or finish date
+- 👥 User authentication with Google OAuth and local strategy
 
 ## 🛠️ Tech Stack
 
 - **Frontend:** HTML, CSS, JavaScript
 - **Backend:** Node.js, Express.js
 - **Database:** PostgreSQL
-- **Frameworks/Libraries:** Bootstrap
+- **Frameworks/Libraries:** Bootstrap, Passport.js
 
 ## 📂 Project Structure
 
 ```
 Book-Notes-WebApp/
 ├── public/          # Static assets (CSS, JS, images)
-├── views/           # Frontend templates (if applicable)
+├── views/           # Frontend templates (EJS)
 ├── routes/          # API routes
-├── models/          # Database models
-├── controllers/     # Business logic
-├── config/          # Configuration files
-├── server.js        # Main server entry point
+├── controller/      # Business logic
+├── .vscode/         # VSCode settings
+├── .env             # Environment variables
+├── .gitignore       # Git ignore file
+├── db.js            # Database connection
+├── index.js         # Main server entry point
 ├── package.json     # Dependencies and scripts
+├── queries.sql      # SQL queries for database setup
 └── README.md        # Project documentation
 ```
 
@@ -78,44 +83,34 @@ These steps cover both setting up the repository and initializing the PostgreSQL
    CREATE TABLE book_details (
      id SERIAL PRIMARY KEY,
      title TEXT NOT NULL,
+     isbn TEXT NOT NULL,
      olid TEXT NOT NULL,
-     author_name TEXT NOT NULL,
+     authorName TEXT NOT NULL,
      genre TEXT NOT NULL,
-     finish_date DATE NOT NULL,
+     userName TEXT NOT NULL,
+     finishDate DATE NOT NULL,
      rating INTEGER NOT NULL,
-     summary TEXT NOT NULL
-   );
-   ```
-   
-   **Alternative for PostgreSQL 10+:**
-   ```sql
-   CREATE TABLE book_details (
-     id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-     title TEXT NOT NULL,
-     olid TEXT NOT NULL,
-     author_name TEXT NOT NULL,
-     genre TEXT NOT NULL,
-     finish_date DATE NOT NULL,
-     rating INTEGER NOT NULL,
+     isPublic BOOLEAN DEFAULT FALSE,
      summary TEXT NOT NULL
    );
    ```
 
 3. **Insert sample data:**
    ```sql
-   INSERT INTO book_details (title, olid, author_name, genre, finish_date, rating, summary)
+   INSERT INTO book_details (title, isbn, olid, authorName, genre, userName, finishDate, rating, isPublic, summary)
    VALUES (
      'Harry Potter and the Philosopher''s Stone',
+     '9780590353403',
      'OL48118497M',
      'J.K. Rowling',
      'Fiction',
+     'Vatsal',
      '2021-06-01',
      5,
+     TRUE,
      'It was a great book.'
    );
    ```
-   
-   **Note:** Ensure that date values are in the `YYYY-MM-DD` format to prevent errors.
 
 4. **Start the server:**
    ```sh
@@ -131,6 +126,8 @@ These steps cover both setting up the repository and initializing the PostgreSQL
 1. Add new book notes with title, content, and category
 2. Search and filter through saved notes
 3. Edit or delete notes when needed
+4. Sort books by title, rating, or finish date
+5. Authenticate using Google OAuth or local strategy
 
 ## 🤝 Contributing
 

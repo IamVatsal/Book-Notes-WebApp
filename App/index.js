@@ -6,7 +6,6 @@ import loginRouter from "./routes/login.route.js";
 import signupRouter from "./routes/signup.route.js";
 import booksRouter from "./routes/books.route.js";
 import editRouter from "./routes/edit.route.js";
-import sortRouter from "./routes/sort.route.js";
 import session from "express-session";
 import passport from "passport";
 
@@ -40,7 +39,6 @@ app.use("/login", loginRouter);
 app.use("/signup", signupRouter);
 app.use("/books", booksRouter);
 app.use("/edit", editRouter);
-app.use("/sort", sortRouter);
 
 let books;
 

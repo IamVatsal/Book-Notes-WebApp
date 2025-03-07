@@ -29,7 +29,7 @@ router.get(
 router.get(
   "/auth/google/callback",
   passport.authenticate("google", {
-    successRedirect: "/",
+    successRedirect: "/books",
     failureRedirect: "/login",
   })
 );
@@ -39,35 +39,36 @@ passport.use(
   new Strategy(
     { usernameField: "email", passwordField: "password" },
     async function verify(email, password, cb) {
-    try {
-      const result = await db.query("SELECT * FROM users WHERE email = $1 ", [
-        email,
-      ]);
-      if (result.rows.length > 0) {
-        const user = result.rows[0];
-        const storedHashedPassword = user.password;
-        bcrypt.compare(password, storedHashedPassword, (err, valid) => {
-          if (err) {
-            //Error with password check
-            console.error("Error comparing passwords:", err);
-            return cb(err);
-          } else {
-            if (valid) {
-              //Passed password check
-              return cb(null, user);
+      try {
+        const result = await db.query("SELECT * FROM users WHERE email = $1 ", [
+          email,
+        ]);
+        if (result.rows.length > 0) {
+          const user = result.rows[0];
+          const storedHashedPassword = user.password;
+          bcrypt.compare(password, storedHashedPassword, (err, valid) => {
+            if (err) {
+              //Error with password check
+              console.error("Error comparing passwords:", err);
+              return cb(err);
             } else {
-              //Did not pass password check
-              return cb(null, false);
+              if (valid) {
+                //Passed password check
+                return cb(null, user);
+              } else {
+                //Did not pass password check
+                return cb(null, false);
+              }
             }
-          }
-        });
-      } else {
-        return cb("User not found");
+          });
+        } else {
+          return cb("User not found");
+        }
+      } catch (err) {
+        console.log(err);
       }
-    } catch (err) {
-      console.log(err);
     }
-  })
+  )
 );
 
 passport.use(
@@ -90,11 +91,7 @@ passport.use(
           const email = profile.emails[0].value;
           const newUser = await db.query(
             "INSERT INTO users (email, password, username) VALUES ($1, $2, $3) RETURNING *",
-            [
-              email,
-              "google",
-              email.slice(0, email.indexOf("@")),
-            ]
+            [email, "google", email.slice(0, email.indexOf("@"))]
           );
           const user = newUser.rows[0];
           return cb(null, user);
@@ -109,4 +106,3 @@ passport.use(
 );
 
 export default router;
-

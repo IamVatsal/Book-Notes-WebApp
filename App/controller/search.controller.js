@@ -13,7 +13,7 @@ const search = async (req, res) => {
     [`%${search}%`, user.username]
   );
   const books = result.rows;
-  res.render("index.ejs", { books: books, basePath: "../", user });
+  res.render("books.ejs", { books: books, basePath: "../", user });
 };
 
 function capitalize(s) {

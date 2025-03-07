@@ -53,10 +53,8 @@ app.get("/", async (req, res) => {
   const user = req.user;
   try {
     if (!user) {
-      return res.redirect("/login");
-    }else{
       let result = await db.query(
-        "SELECT id, title, olid, authorName, genre, TO_CHAR(finishDate, 'DD/MM/YYYY') AS finishDate, rating, summary FROM book_details WHERE username = $1",[user.username]
+        "SELECT id, title, olid, authorName, genre, TO_CHAR(finishDate, 'DD/MM/YYYY') AS finishDate, rating, summary, username FROM book_details WHERE ispublic = true"
       );
       books = result.rows;
       res.render("index.ejs", { books: books , user });

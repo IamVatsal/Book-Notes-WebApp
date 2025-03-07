@@ -153,15 +153,25 @@
                     Finsih Date : <%= book.finishdate %>
                   </p>
                   <p class="text text-rating">Rating : <%= book.rating %>/10</p>
-                  <p class="text text-rating">By User : <%= book.username %></p>
                   <p
                     class="text text-summary"
                     id="summary-<%= book.id %>"
                     data-full="<%= book.summary %>"
                   >
-                    <%= book.summary.slice(0,330) %>
+                    <%= book.summary.slice(0,400) %>
                     <a class="text-showMore" onclick="showMore('<%= book.id %>')">View More...</a>
-                  </p>                  
+                  </p>
+                  <div class="book-btn">
+                    <form action="/books/edit/<%= book.id %>" method="get">
+                      <button
+                        class="btn d-block"
+                        formaction="/books/edit/<%= book.id %>"
+                        formmethod="get"
+                      >
+                        Edit
+                      </button>
+                    </form>
+                  </div>
                 </div>
               </div>
             </div>

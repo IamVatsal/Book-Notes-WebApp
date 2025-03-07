@@ -23,7 +23,7 @@ const sort = async (req, res) => {
     books = result.rows;
   }
 
-  res.render("index.ejs", { books: books, basePath: "../" , user});
+  res.render("books.ejs", { books: books, basePath: "../" , user});
 };
 
 export { sort };

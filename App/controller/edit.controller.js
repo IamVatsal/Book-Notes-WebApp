@@ -21,7 +21,8 @@ const editBook = async (req, res) => {
     if (!req.isAuthenticated()) {
       res.redirect("/login");
       return;
-    } 
+    }
+    console.log(req.body); 
     const user = req.user;
     const id = req.params.id;
   
@@ -52,11 +53,11 @@ const editBook = async (req, res) => {
           user.username,
         ]
       );
+      res.redirect("/");
     } catch (error) {
       console.log(error);
     }
   
-    res.redirect("/");
 };
 
 export { getEditPage, editBook };

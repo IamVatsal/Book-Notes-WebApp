@@ -41,12 +41,12 @@
                     >Sort By</a
                   >
                   <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="/sort/title">Name (A-Z)</a></li>
+                    <li><a class="dropdown-item" href="" onclick="sortBooks('title')">Name (A-Z)</a></li>
                     <li>
-                      <a class="dropdown-item" href="/sort/rating">Rating</a>
+                      <a class="dropdown-item" href="" onclick="sortBooks('rating')">Rating</a>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="/sort/finishdate">Date</a>
+                      <a class="dropdown-item" href="" onclick="sortBooks('finishdate')">Date</a>
                     </li>
                   </ul>
                 </li>
@@ -134,7 +134,10 @@
         <div class="container">
           <div class="row">
             <% books.forEach(function(book){ %>
-            <div id="book-container-<%= book.id %>" class="book-container m-3">
+              <div id="book-container-<%= book.id %>" class="book-container m-3" 
+                data-title="<%= book.title.toLowerCase() %>" 
+                data-rating="<%= book.rating %>" 
+                data-finishdate="<%= new Date(book.finishdate).getTime() %>">
               <div class="item-container">
                 <img
                   src="https://covers.openlibrary.org/b/olid/<%= book.olid %>-L.jpg"
@@ -193,41 +196,57 @@
         const searchInput = document
           .getElementById("search")
           .value.toLowerCase();
-        const bookList = document.querySelectorAll(".book-container"); // Correct selector
-
+        const bookList = document.querySelectorAll(".book-container");
+    
         bookList.forEach((book) => {
           const title = book
             .querySelector(".text-title")
-            .textContent.toLowerCase(); // Match title selector
+            .textContent.toLowerCase();
           if (title.includes(searchInput)) {
-            book.style.display = "block"; // Show matching books
+            book.style.display = "block";
           } else {
-            book.style.display = "none"; // Hide non-matching books
+            book.style.display = "none";
           }
         });
       }
+    
       function showMore(id) {
         const summary = document.querySelector(`#summary-${id}`);
         if (summary) {
-          summary.textContent = summary.dataset.full; // Show the full summary
-          summary.style.maxHeight = "none"; // Remove the max-height
+          summary.textContent = summary.dataset.full;
+          summary.style.maxHeight = "none";
         }
       }
-
-      // Filter books by genre
-
+    
       function filterBooks(genre) {
-        const bookList = document.querySelectorAll(".book-container"); // Select all book containers
-
+        const bookList = document.querySelectorAll(".book-container");
+    
         bookList.forEach((book) => {
-          const genreText = book.querySelector(".text-genre")?.textContent.replace("Genre :", "").trim().toLowerCase(); // Get the genre text and ensure safety with optional chaining
-
+          const genreText = book.querySelector(".text-genre")?.textContent.replace("Genre :", "").trim().toLowerCase();
+    
           if (!genre || (genreText && genreText === genre.toLowerCase())) {
-            book.style.display = "block"; // Show matching books
+            book.style.display = "block";
           } else {
-            book.style.display = "none"; // Hide non-matching books
+            book.style.display = "none";
           }
         });
+      }
+    
+      function sortBooks(criteria) {
+        const bookList = Array.from(document.querySelectorAll(".book-container"));
+        const container = document.querySelector("#book-list .row");
+    
+        bookList.sort((a, b) => {
+          if (criteria === "title") {
+            return a.dataset.title.localeCompare(b.dataset.title);
+          } else if (criteria === "rating") {
+            return b.dataset.rating - a.dataset.rating;
+          } else if (criteria === "finishdate") {
+            return b.dataset.finishdate - a.dataset.finishdate;
+          }
+        });
+    
+        bookList.forEach(book => container.appendChild(book));
       }
     </script>
   </body>

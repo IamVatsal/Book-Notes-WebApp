@@ -4,6 +4,7 @@ import db from "../db.js";
 import {
   getLoginPage,
   getForgotpassPage,
+  localauth
 } from "../controller/login.controller.js";
 import passport from "passport";
 import { Strategy } from "passport-local";
@@ -13,13 +14,7 @@ const router = express.Router();
 
 router.get("/", getLoginPage);
 router.get("/forgotpass", getForgotpassPage);
-router.post(
-  "/",
-  passport.authenticate("local", {
-    successRedirect: "/books",
-    failureRedirect: "/login",
-  })
-);
+router.post("/", localauth);
 
 router.get(
   "/auth/google",
@@ -82,7 +77,7 @@ passport.use(
     },
     async (accessToken, refreshToken, profile, cb) => {
       try {
-        console.log(profile);
+        // console.log(profile);
         const result = await db.query("SELECT * FROM users WHERE email = $1", [
           profile.emails[0].value,
         ]);

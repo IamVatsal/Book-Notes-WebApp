@@ -108,9 +108,16 @@
                 </li>
               </ul>
               <div class="search-login-container">
+                <% if(user){ %>
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 login-btn">
                   <li class="nav-item nev-hover">
-                    <a class="nav-link" href=<%= user ? "/books" : "/login" %>><%= user ? `${user.username}` : "Login" %></a>
+                    <a class="nav-link" href="/books">My Books</a>
+                  </li>
+                </ul>
+                <% } %>
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 login-btn">
+                  <li class="nav-item nev-hover">
+                    <a class="nav-link" href=<%= user ? "/profile" : "/login" %>><%= user ? `${user.username}` : "Login" %></a>
                   </li>
                 </ul>
 

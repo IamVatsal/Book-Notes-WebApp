@@ -1,0 +1,103 @@
+<%- include("partials/header.ejs") %>
+<body>
+    <main>
+      <section id="nevbar">
+        <nav
+          class="navbar navbar-expand-lg"
+          aria-label="Eleventh navbar example"
+        >
+          <div class="container">
+            <a class="navbar-brand" href="/"
+              ><img class="nav-logo" src="<%= basePath %>images/icons8-book-100.png" alt=""
+            /></a>
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarsExample09"
+              aria-controls="navbarsExample09"
+              aria-expanded="true"
+              aria-label="Toggle navigation"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="navbar-collapse collapse" id="navbarsExample09">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item nev-hover">
+                  <a class="nav-link active" aria-current="page" href="/"
+                    >Home</a
+                  >
+                </li>
+                <li class="nav-item nev-hover">
+                  <a class="nav-link" href="/books/new">New Book</a>
+                </li>
+              </ul>
+              <div class="search-login-container">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 login-btn">
+                  <li class="nav-item nev-hover">
+                    <a class="nav-link" href="/books">My Books</a>
+                  </li>
+                </ul>
+                <form role="search">
+                  <input
+                    name="search"
+                    id="search"
+                    class="form-control search-box"
+                    type="search"
+                    placeholder="Search"
+                    aria-label="Search"
+                    oninput=""
+                  />
+                </form>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </section>
+      <section class="profile">
+        <div class="container py-5">
+          <div
+            class="row d-flex justify-content-center align-items-center h-75"
+          >
+            <div class="col-md-12 col-xl-4 h-50">
+              <div class="card profile-card" style="border-radius: 15px">
+                <div class="card-body text-center">
+                  <div class="mt-3 mb-4">
+                    <img
+                      src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava2-bg.webp"
+                      class="rounded-circle img-fluid"
+                      style="width: 100px"
+                    />
+                  </div>
+                  <h4 class="mb-2"><%= user.username %></h4>
+                  <p class="text-muted mb-4">
+                    <%= user.email %>
+                  </p>
+                  <button
+                    type="button"
+                    data-mdb-button-init
+                    data-mdb-ripple-init
+                    class="btn btn-rounded"
+                  >
+                    <a href="/logout" class="nav-link">Log Out</a>
+                  </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="footer">
+        <p class="text-center text-body-secondary">© 2025 Vatsal</p>
+      </section>
+    </main>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+    <script></script>
+  </body>
+</html>

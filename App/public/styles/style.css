@@ -249,6 +249,10 @@ td {
   z-index: 10;
 }
 
+.profile-card{
+  background-color: #eff3ea;
+}
+
 @media (min-width: 576px) {
   .dropdown:hover .dropdown-menu {
     display: block;

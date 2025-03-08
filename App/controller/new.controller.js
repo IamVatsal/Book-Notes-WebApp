@@ -61,7 +61,7 @@ const postAddBookPage = async (req, res) => {
   
     try {
       await db.query(
-        "INSERT INTO book_details (title, isbn, olid, authorname, genre, username, finishdate, rating, isPublic, summary) VALUES ($1, $2, $3, $4, $5, $6, $7, $8 , $9, $10)",
+        "INSERT INTO book_details (title, isbn, olid, authorname, genre, username, finishdate, rating, ispublic, summary) VALUES ($1, $2, $3, $4, $5, $6, $7, $8 , $9, $10)",
         [
           book.title,
           book.isbn,

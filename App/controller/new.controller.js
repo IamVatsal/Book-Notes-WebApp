@@ -39,7 +39,7 @@ const postAddBookPage = async (req, res) => {
       res.redirect("/login");
       return;
     }
-
+    console.log(req.body);
     const user = req.user;
     const book = {
       title: req.body.title,
@@ -49,7 +49,7 @@ const postAddBookPage = async (req, res) => {
       genre: req.body.genre,
       finishdate: req.body.finishDate,
       rating: req.body.rating,
-      isPublic: req.body.isPublic === "true",
+      ispublic: req.body.ispublic === "true",
       summary: req.body.summary,
     };
 
@@ -61,7 +61,7 @@ const postAddBookPage = async (req, res) => {
   
     try {
       await db.query(
-        "INSERT INTO book_details (title, isbn, olid, authorname, genre, username, finishdate, rating, isPublic, summary) VALUES ($1, $2, $3, $4, $5, $6, $7, $8 , $9, $10)",
+        "INSERT INTO book_details (title, isbn, olid, authorname, genre, username, finishdate, rating, ispublic, summary) VALUES ($1, $2, $3, $4, $5, $6, $7, $8 , $9, $10)",
         [
           book.title,
           book.isbn,
@@ -71,7 +71,7 @@ const postAddBookPage = async (req, res) => {
           user.username,
           book.finishdate,
           book.rating,
-          book.isPublic,
+          book.ispublic,
           book.summary,
         ]
       );

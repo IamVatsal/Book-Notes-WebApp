@@ -85,8 +85,8 @@ passport.use(
         if (result.rows.length === 0) {
           const email = profile.emails[0].value;
           const newUser = await db.query(
-            "INSERT INTO users (email, password, username) VALUES ($1, $2, $3) RETURNING *",
-            [email, "google", email.slice(0, email.indexOf("@"))]
+            "INSERT INTO users (email, password, username, userimage) VALUES ($1, $2, $3, $4) RETURNING *",
+            [email, "google", email.slice(0, email.indexOf("@")), profile._json.picture]
           );
           const user = newUser.rows[0];
           return cb(null, user);

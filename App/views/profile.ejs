@@ -65,9 +65,14 @@
                 <div class="card-body text-center">
                   <div class="mt-3 mb-4">
                     <img
-                      src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava2-bg.webp"
+                    <% if(user.userimg) {%>
+                      src="<%= user.userimg %>"
+                    <% } else {%>
+                      src="<%= basePath %>images/icons8-customer-100.png"
+                    <% } %>
                       class="rounded-circle img-fluid"
                       style="width: 100px"
+                      alt="user-image"
                     />
                   </div>
                   <h4 class="mb-2"><%= user.username %></h4>

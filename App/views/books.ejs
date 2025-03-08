@@ -167,7 +167,9 @@
                     data-full="<%= book.summary %>"
                   >
                     <%= book.summary.slice(0,400) %>
-                    <a class="text-showMore" onclick="showMore('<%= book.id %>')">View More...</a>
+                    <div class="text-showMore-container">
+                      <a class="text-showMore" onclick="showMore('<%= book.id %>')">View More...</a>
+                    </div>
                   </p>
                   <div class="book-btn">
                     <form action="/books/edit/<%= book.id %>" method="get">

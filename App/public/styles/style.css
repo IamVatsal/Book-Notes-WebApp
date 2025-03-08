@@ -96,21 +96,22 @@ body {
   text-align: left;
   text-indent: 3rem;
   white-space: pre-wrap;
-  overflow: hidden; /* Hide overflow text */
-  text-overflow: ellipsis; /* Add ellipsis for overflow text */
-  display: block; /* Ensure block display */
-  position: relative; /* Position relative for the ellipsis */
-  width: 100%; /* Ensure it takes full width */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+  position: relative;
+  width: 100%;
+}
+.text-showMore-container{
+  display: flex;
+  justify-content: end;
+  width: 100%;
 }
 .text-showMore{
   font-size: 13px;
   text-decoration: none;
   color: #457bb1;
   cursor: pointer;
-  position: absolute; /* Position absolute for right-bottom placement */
-  bottom: 50px; /* Align to the bottom */
-  right: 30px; /* Align to the right */
-  padding-left: 5px; /* Add some padding for spacing */
 }
 .book-btn {
   display: inline-flex;

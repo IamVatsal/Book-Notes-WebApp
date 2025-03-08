@@ -170,7 +170,9 @@
                     data-full="<%= book.summary %>"
                   >
                     <%= book.summary.slice(0,330) %>
+                    <div class="text-showMore-container">
                     <a class="text-showMore" onclick="showMore('<%= book.id %>')">View More...</a>
+                    </div>
                   </p>                  
                 </div>
               </div>

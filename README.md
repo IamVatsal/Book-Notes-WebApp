@@ -95,7 +95,17 @@ These steps cover both setting up the repository and initializing the PostgreSQL
    );
    ```
 
-3. **Insert sample data:**
+3. **Create the `users` table:**
+   ```sql
+   CREATE TABLE users (
+     id SERIAL PRIMARY KEY,
+     email VARCHAR(100) NOT NULL UNIQUE,
+     password TEXT NOT NULL,
+     username TEXT NOT NULL UNIQUE
+   );
+   ```
+
+4. **Insert sample data:**
    ```sql
    INSERT INTO book_details (title, isbn, olid, authorName, genre, userName, finishDate, rating, isPublic, summary)
    VALUES (
@@ -112,11 +122,11 @@ These steps cover both setting up the repository and initializing the PostgreSQL
    );
    ```
 
-4. **Start the server:**
+5. **Start the server:**
    ```sh
    npm start
    ```
-5. **Open your browser and visit:**
+6. **Open your browser and visit:**
    ```
    http://localhost:3000
    ```
@@ -128,6 +138,17 @@ These steps cover both setting up the repository and initializing the PostgreSQL
 3. Edit or delete notes when needed
 4. Sort books by title, rating, or finish date
 5. Authenticate using Google OAuth or local strategy
+
+## 📸 Screenshots
+
+### Index Page
+![Index Page](./Images/Index%20Page.jpeg)
+
+### New Book Page
+![New Book Page](./Images/New%20Page.jpeg)
+
+### Edit Book Page
+![Edit Book Page](./Images/Edit%20Page.jpeg)
 
 ## 🤝 Contributing
 

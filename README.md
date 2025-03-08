@@ -72,6 +72,19 @@ These steps cover both setting up the repository and initializing the PostgreSQL
    # Update .env file with necessary details
    ```
 
+### .env Structure
+
+```properties
+GOOGLE_CLIENT_ID = "Your_Client_Id"
+GOOGLE_CLIENT_SECRET = "Your_Client_Secret"
+DB_USER = Your_User_Name
+DB_HOST = Your_DB_Host
+DB_NAME = Your_DB_Name
+DB_PASSWORD = Your_DB_Password
+DB_PORT = Your_DB_Port
+SESSION_SECRET = "SECRETWORD"
+```
+
 ### Database Initialization
 
 1. **Access the PostgreSQL shell:**
@@ -105,20 +118,12 @@ These steps cover both setting up the repository and initializing the PostgreSQL
    );
    ```
 
-4. **Insert sample data:**
+4. **Create the `session` table:**
    ```sql
-   INSERT INTO book_details (title, isbn, olid, authorName, genre, userName, finishDate, rating, isPublic, summary)
-   VALUES (
-     'Harry Potter and the Philosopher''s Stone',
-     '9780590353403',
-     'OL48118497M',
-     'J.K. Rowling',
-     'Fiction',
-     'Vatsal',
-     '2021-06-01',
-     5,
-     TRUE,
-     'It was a great book.'
+   CREATE TABLE session (
+     sid VARCHAR PRIMARY KEY,
+     sess JSON NOT NULL,
+     expire TIMESTAMPTZ NOT NULL
    );
    ```
 

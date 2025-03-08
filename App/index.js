@@ -9,18 +9,24 @@ import profileRouter from "./routes/profile.route.js";
 import booksRouter from "./routes/books.route.js";
 import editRouter from "./routes/edit.route.js";
 import session from "express-session";
+import connectPgSimple from "connect-pg-simple";
 import passport from "passport";
 
 dotenv.config();
 const app = express();
 const port = process.env.PORT || 3000;
+const pgSession = connectPgSimple(session);
 
 const sessionOptions = {
+  store: new pgSession({
+    pool: db,
+    tableName: "session",
+  }),
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true,
   cookie: {
-    maxAge: 1000 * 60 * 60 * 24,
+    maxAge: 1000 * 60 * 60 * 24, // 1 day
   },
 };
 

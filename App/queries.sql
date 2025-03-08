@@ -19,7 +19,14 @@ CREATE TABLE users (
 	username TEXT NOT NULL UNIQUE
 );
 
-INSERT INTO book_details (title, isbn, olid, authorName, genre, username, finishDate, rating, isPublic, summary) 
-VALUES ('Harry Potter and the Philosopher''s Stone', '9780590353403', 'OL48118497M', 'J. K. Rowling', 'Fiction', 'Vatsal', '2021-06-01', 5, 't' , 'It was Great Book');
+CREATE TABLE session (
+  sid VARCHAR PRIMARY KEY,
+  sess JSON NOT NULL,
+  expire TIMESTAMPTZ NOT NULL
+);
 
-SELECT id, title, isbn, olid, authorName, genre, TO_CHAR(finishDate, 'DD/MM/YYYY') AS finishDate, rating, summary FROM book_details;
+
+-- INSERT INTO book_details (title, isbn, olid, authorName, genre, username, finishDate, rating, isPublic, summary) 
+-- VALUES ('Harry Potter and the Philosopher''s Stone', '9780590353403', 'OL48118497M', 'J. K. Rowling', 'Fiction', 'Vatsal', '2021-06-01', 5, 't' , 'It was Great Book');
+
+-- SELECT id, title, isbn, olid, authorName, genre, TO_CHAR(finishDate, 'DD/MM/YYYY') AS finishDate, rating, summary FROM book_details;

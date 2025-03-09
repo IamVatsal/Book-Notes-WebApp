@@ -65,6 +65,27 @@
                     <table class="new-from-table">
                       <tr>
                         <td class="new-book-inputText">
+                          <label for="isbn"
+                            ><p class="text new-text-title">
+                              ISBN Id :
+                            </p></label
+                          >
+                        </td>
+                        <td>
+                          <input
+                            name="isbn"
+                            id="isbn"
+                            class="form-text-input form-control"
+                            type="text"
+                            placeholder="Enter ISBN Id"
+                            title="Find ISBN Id from https://openlibrary.org/"
+                            value="<%= book ? book.isbn : '' %>"
+                            required
+                          />
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="new-book-inputText">
                           <label for="olid"
                             ><p class="text new-text-title">
                               Open Library Id :
@@ -81,27 +102,6 @@
                             title="Find Open Library Id from https://openlibrary.org/"
                             value="<%= book ? book.olid : '' %>"
                             data-original="<%= book ? book.olid : '' %>"
-                            required
-                          />
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="new-book-inputText">
-                          <label for="isbn"
-                            ><p class="text new-text-title">
-                              ISBN Id :
-                            </p></label
-                          >
-                        </td>
-                        <td>
-                          <input
-                            name="isbn"
-                            id="isbn"
-                            class="form-text-input form-control"
-                            type="text"
-                            placeholder="Enter ISBN Id"
-                            title="Find ISBN Id from https://openlibrary.org/"
-                            value="<%= book ? book.isbn : '' %>"
                             required
                           />
                         </td>

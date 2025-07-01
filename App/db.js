@@ -9,8 +9,9 @@ const db = new pg.Client({
   password: process.env.DB_PASSWORD,
   port: process.env.DB_PORT,
   ssl: {
-    rejectUnauthorized: false,
-  },
+    rejectUnauthorized: process.env.NODE_ENV === 'production' ? false : true, // Disable SSL verification in development
+  }
+
 });
 
 export default db;

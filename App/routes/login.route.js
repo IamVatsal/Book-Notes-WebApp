@@ -72,7 +72,7 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: "https://book-notes-webapp.onrender.com/login/auth/google/callback",
+      callbackURL: process.env.GOOGLE_CALLBACK_URL || 'http://localhost:3000/login/auth/google/callback',
       userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo",
     },
     async (accessToken, refreshToken, profile, cb) => {

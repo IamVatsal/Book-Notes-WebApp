@@ -77,12 +77,14 @@ These steps cover both setting up the repository and initializing the PostgreSQL
 ```properties
 GOOGLE_CLIENT_ID = "Your_Client_Id"
 GOOGLE_CLIENT_SECRET = "Your_Client_Secret"
+GOOGLE_CALLBACK_URL = "${YourBase URL}/login/auth/google/callback" (Optional)
 DB_USER = Your_User_Name
 DB_HOST = Your_DB_Host
 DB_NAME = Your_DB_Name
 DB_PASSWORD = Your_DB_Password
 DB_PORT = Your_DB_Port
 SESSION_SECRET = "SECRETWORD"
+NODE_ENV = "local" or "production"
 ```
 
 ### Database Initialization
@@ -100,7 +102,7 @@ SESSION_SECRET = "SECRETWORD"
      olid TEXT NOT NULL,
      authorName TEXT NOT NULL,
      genre TEXT NOT NULL,
-     userName TEXT NOT NULL,
+     username TEXT NOT NULL,
      finishDate DATE NOT NULL,
      rating INTEGER NOT NULL,
      isPublic BOOLEAN DEFAULT FALSE,

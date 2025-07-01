@@ -9,7 +9,7 @@ const db = new pg.Client({
   password: process.env.DB_PASSWORD,
   port: process.env.DB_PORT,
   ssl: {
-    rejectUnauthorized: process.env.NODE_ENV === 'production' ? false : true, // Disable SSL verification in development
+    rejectUnauthorized: false, // Disable SSL verification in development
   }
 
 });

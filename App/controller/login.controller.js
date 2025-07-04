@@ -17,7 +17,8 @@ const getForgotpassPage = (req, res) => {
 };
 
 const localauth = (req, res, next) => {
-  passport.authenticate("local", (err, user, info) => {
+  try {
+   passport.authenticate("local", (err, user, info) => {
     if (err) {
       return next(err);
     }
@@ -34,6 +35,11 @@ const localauth = (req, res, next) => {
       return res.redirect("/books");
     });
   })(req, res, next);
+  }catch (error) {
+    console.error("Error during local authentication:", error);
+    res.status(500).send("Internal Server Error");
+    return res.redirect("/login");
+  }
 };
 
 export { getLoginPage, getForgotpassPage , localauth};
